@@ -1,5 +1,6 @@
 package manager;
 
+import helper.HelperLoginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -14,20 +15,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
+import utils.Reader;
 
 import java.util.concurrent.TimeUnit;
 
-public abstract class AppManager {
+public class AppManager {
 
     WebDriver driver;
     String browser;
     Logger logger= LoggerFactory.getLogger(AppManager.class);
     WebDriverListener listener;
-    String BASE_URL="https://shetko.online";
+    HelperLoginPage loginPage;
     public AppManager() {
         browser = System.getProperty("browser", Browser.CHROME.browserName());
         logger.info(browser);
     }
+    public HelperLoginPage getLog() {
+        return loginPage;
+    }
+
 
     @BeforeSuite(alwaysRun = true)
     public void init() {
@@ -53,11 +59,10 @@ public abstract class AppManager {
             logger.info("Browser start "+ browser);
         }
 
-      //  driver.navigate().to(Reader.getProperty("web.baseUrl"));
-        driver.navigate().to(BASE_URL);
+        driver.navigate().to(Reader.getProperty("web.baseUrl"));
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        loginPage=new HelperLoginPage(driver);
     }
 
 
