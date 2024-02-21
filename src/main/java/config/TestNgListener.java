@@ -1,4 +1,4 @@
-package manager;
+package config;
 
 import org.testng.ITestContext;
 import org.testng.ITestListener;

@@ -1,4 +1,4 @@
-package manager;
+package config;
 
 import com.google.common.io.Files;
 import org.openqa.selenium.*;
@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.text.SimpleDateFormat;

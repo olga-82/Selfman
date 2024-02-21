@@ -1,4 +1,4 @@
-package manager;
+package config;
 
 import helper.HelperLoginPage;
 import org.openqa.selenium.WebDriver;
@@ -19,7 +19,7 @@ import utils.Reader;
 
 import java.util.concurrent.TimeUnit;
 
-public class AppManager {
+public abstract class AppManager {
 
     WebDriver driver;
     String browser;
