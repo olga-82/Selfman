@@ -8,7 +8,8 @@ import org.testng.annotations.BeforeSuite;
 
 import java.io.IOException;
 
-public class TestBase extends AppManager {
+public class TestBase  {
+    AppManager app =new AppManager();
 
     Logger logger = LoggerFactory.getLogger(TestBase.class);
 
@@ -19,7 +20,7 @@ public class TestBase extends AppManager {
 
     @BeforeSuite
     public void setUp() throws IOException {
-        init ();
+       app.init();
         logger.info("Test started");
 
     }
@@ -29,7 +30,7 @@ public class TestBase extends AppManager {
     @AfterSuite(alwaysRun = true)
 
     public void stop() {
-        tearDown();
+       app.tearDown();
         logger.info("Test stopped");
 
 

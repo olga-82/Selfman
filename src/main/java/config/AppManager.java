@@ -1,5 +1,6 @@
 package config;
 
+import helper.HelperFactoryProfile;
 import helper.HelperLoginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,13 +20,14 @@ import utils.Reader;
 
 import java.util.concurrent.TimeUnit;
 
-public abstract class AppManager {
+public  class AppManager {
 
     WebDriver driver;
     String browser;
     Logger logger= LoggerFactory.getLogger(AppManager.class);
     WebDriverListener listener;
     HelperLoginPage loginPage;
+    HelperFactoryProfile provider;
     public AppManager() {
         browser = System.getProperty("browser", Browser.CHROME.browserName());
         logger.info(browser);
@@ -34,6 +36,9 @@ public abstract class AppManager {
         return loginPage;
     }
 
+    public HelperFactoryProfile getProvider() {
+        return provider;
+    }
 
     @BeforeSuite(alwaysRun = true)
     public void init() {
@@ -63,6 +68,7 @@ public abstract class AppManager {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         loginPage=new HelperLoginPage(driver);
+        provider =new HelperFactoryProfile(driver);
     }
 
 

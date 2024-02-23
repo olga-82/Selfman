@@ -1,5 +1,6 @@
 package tests;
 
+import config.AppManager;
 import dto.AgentDTO;
 import dto.CustomerDTO;
 import dto.FactoryDTO;
@@ -9,12 +10,14 @@ import utils.Reader;
 
 import java.lang.reflect.Method;
 
-public class LoginTests extends TestBase{
+import static utils.Reader.getProperty;
+
+public class LoginTests extends TestBase  {
 
     @AfterMethod(alwaysRun = true)
     public void precondition(Method method){
         if (flag_Need_Logout) {
-            getLog().logout();
+           app.getLog().logout();
             flag_Need_Logout = false;
             logger.info("flagNeedLogout = " + flag_Need_Logout);
             logger.info("method info: " + method.getName());
@@ -26,48 +29,51 @@ public class LoginTests extends TestBase{
     @Test
     public void login_Positive_Test_Agent() {
          AgentDTO agent = AgentDTO.builder()
-                    .email(Reader.getProperty("web.email"))
-                    .password(Reader.getProperty("web.password"))
+                    .email(getProperty("web.email"))
+                    .password(getProperty("web.password"))
                     .build();
         flag_Need_Logout=true;
         logger.info("flagNeedLogout = " + flag_Need_Logout);
         logger.info(" loginPositiveAgent start with credentials "
                 + agent.getEmail() + " " + agent.getPassword());
 
-        getLog().login_Agent(agent);
-        getLog().pause(2000);
+        app.getLog().login_Agent(agent);
+        app.getLog().pause(2000);
 
 
     }
     @Test
     public void login_Positive_Test_Factory() {
        FactoryDTO factory = FactoryDTO.builder()
-                .email(Reader.getProperty("web.email"))
-                .password(Reader.getProperty("web.password"))
+                .email(getProperty("web.email"))
+                .password(getProperty("web.password"))
                 .build();
         flag_Need_Logout=true;
         logger.info("flagNeedLogout = " + flag_Need_Logout);
         logger.info(" login Positive Factory start with credentials "
                 + factory.getEmail() + " " + factory.getPassword());
 
-       getLog().login_Factory(factory);
-       getLog().pause(2000);
-
+       app.getLog().login_Factory(factory);
+       app.getLog().pause(2000);
+        app.getProvider().OpenSettingsPage();
+        app.getLog().pause(2000);
+        app.getProvider().ClickButtonEditProfile();
+        app.getLog().pause(2000);
 
     }
     @Test
     public void login_Positive_Test_Customer() {
        CustomerDTO customer = CustomerDTO.builder()
-                .email(Reader.getProperty("web.email"))
-                .password(Reader.getProperty("web.password"))
+                .email(getProperty("web.email"))
+                .password(getProperty("web.password"))
                 .build();
         flag_Need_Logout=true;
         logger.info("flagNeedLogout = " + flag_Need_Logout);
         logger.info(" loginPositiveCustomer start with credentials "
                 + customer.getEmail() + " " + customer.getPassword());
 
-        getLog().login_Customer(customer);
-        getLog().pause(2000);
+        app.getLog().login_Customer(customer);
+        app.getLog().pause(2000);
 
     }
 }
