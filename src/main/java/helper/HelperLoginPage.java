@@ -10,7 +10,9 @@ import org.testng.Assert;
 import static helper.HelperNavigation.BUTTON_AGENTS;
 import static helper.HelperNavigation.LOGOUT;
 
-public class HelperLoginPage extends HelperBase {
+public class HelperLoginPage extends HelperBase implements HelperNavigation{
+
+
     public HelperLoginPage(WebDriver driver) {
         super(driver);
     }
@@ -25,7 +27,7 @@ public class HelperLoginPage extends HelperBase {
     private final String LINK_HELP = " //*[@id='root']/div/div[2]/div[3]/a ";
     private final String TEXT = " //*[@id='root']/div/div[2]/div[4]/h5";
     private final String BUTTON_SIGN_UP = " //*[@id='root']/div/div[2]/div[5]/button";
-    private final String BUTTON_SETTING = " //*[@id='root']/div[1]/div[1]/div[3]/a[1]/div/div[1]/h4";
+
     private final String BUTTON_EYE = "//*[@id='root']/div/div[2]/form/div[4]/button";
 
 
@@ -87,7 +89,7 @@ public class HelperLoginPage extends HelperBase {
 
 
     public void is_Button_Setting_Present() {
-        isElementPresent(By.xpath(BUTTON_SETTING));
+        isElementPresent(By.xpath(BUTTON_SETTINGS));
     }
 
     public void waitElement() {

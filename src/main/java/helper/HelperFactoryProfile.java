@@ -3,78 +3,48 @@ package helper;
 import dto.Availability;
 import dto.FactoryDTO;
 import dto.Yes_No;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import utils.Reader;
 
-import static helper.HelperNavigation.BUTTON_SETTINGS;
+import static utils.Reader.getProperty;
 
-public class HelperFactoryProfile extends HelperBase {
+
+public class HelperFactoryProfile extends HelperBase implements HelperNavigation{
     public HelperFactoryProfile(WebDriver driver) {
         super(driver);
     }
+    Logger logger= LoggerFactory.getLogger(HelperFactoryProfile.class);
 
-    // private final String EDIT_PROFILE_BUTTON ="//*[@id='root']//div[2]/div[3]/div[1]/button[1]";
-    private final String CHANGE_PASSWORD_BUTTON = "//*[@id='root']//div[2]/div[3]/div[1]/button[2]";
-    // private final String INPUT_COMPANY_NAME =" //*[@id='root']//div[2]/div[2]/div/input";
-    // private final String INPUT_COUNTRY =" //*[@id='root']//div[2]/div[3]/div/input";
-    // private final String INPUT_CITY =" //*[@id='root']//div[2]/div[3]/div[2]/input";
-    // private final String INPUT_EMAIL =" //*[@id='root']//div[2]/div[3]/div[3]/input";
-    // private final String INPUT_WEB_SITE =" //*[@id='root']//div[2]/div[3]/div[4]/div[1]/input";
-//    private final String INPUT_FACEBOOK =" //*[@id='root']//div[2]/div[3]/div[4]/div[2]/input";
-//    private final String INPUT_INSTAGRAM =" //*[@id='root']//div[2]/div[3]/div[4]/div[3]/input";
-//    private final String INPUT_LINKEDIN =" //*[@id='root']//div[2]/div[3]/div[4]/div[4]/input";
-//    private final String CHECK_BOX_AVAILABILITY_NOW =" //*[@class='sc-jxgRln JHglX']";
-//    private final String CHECK_BOX_AVAILABILITY_NEXT_WEEK ="//*[@id='root']//div[2]/div[3]/div[5]/div/div[2]/div/div";
-//    private final String CHECK_BOX_AVAILABILITY_NEXT_MONTH ="//*[@id='root']//div[2]/div[3]/div[5]/div/div[3]/div/div";
-//    private final String INPUT_INDUSTRY = " //*[@id='root']//div[2]/div[3]/div[6]/input";
-//    private final String INPUT_KEYWORDS = " //*[@id='root']//div[2]/div[3]/div[7]/input";
-//    private final String INPUT_ABOUT = " //*[@id='AboutProvider']";
-//    private final String INPUT_FOUNDED = "//*[@id='root']//div[2]/div[5]/div[1]/input";
-//    private final String INPUT_LANGUAGE = "//*[@id='root']//div[2]/div[5]/div[2]/input";
-//    private final String INPUT_SHIPPING_TO = "//*[@id='root']//div[2]/div[5]/div[3]/input";
-//    private final String INPUT_PAYMENTS_TERMS = "//*[@id='root']//div[2]/div[5]/div[4]/input";
-//    private final String CHECKBOX_CUSTOMIZATION_CAPACITY_YES = "//*[@id='root']/div[1]/div[2]/div[6]/div[1]/div/div[1]/div/div/div";
-//    private final String CHECKBOX_CUSTOMIZATION_CAPACITY_NO = "//*[@id='root']/div[1]/div[2]/div[6]/div[1]/div/div[2]/div/div/div";
-//    private final String CHECKBOX_RD_CAPACITY_YES = "//*[@id='root']/div[1]/div[2]/div[6]/div[2]/div/div[1]/div/div/div";
-//    private final String CHECKBOX_RD_CAPACITY_NO = "//*[@id='root']/div[1]/div[2]/div[6]/div[2]/div/div[2]/div/div/div";
-//    private final String CHECKBOX_SPECIAL_PACKING_YES = "//*[@id='root']/div[1]/div[2]/div[6]/div[3]/div/div[1]/div/div/div";
-//    private final String CHECKBOX_SPECIAL_PACKING_NO = "//*[@id='root']/div[1]/div[2]/div[6]/div[3]/div/div[2]/div/div/div";
-//    private final String CHECKBOX_WHITE_LABEL_YES = "//*[@id='root']/div[1]/div[2]/div[6]/div[4]/div/div[1]/div/div/div";
-//    private final String CHECKBOX_WHITE_LABEL_NO = "//*[@id='root']/div[1]/div[2]/div[6]/div[4]/div/div[2]/div/div/div";
-//    private final String CHECKBOX_SERTIFICATION_YES = "//*[@id='root']/div[1]/div[2]/div[6]/div[5]/div/div[1]/div/div/div";
-//    private final String CHECKBOX_SERTIFICATION_NO = "//*[@id='root']/div[1]/div[2]/div[6]/div[5]/div/div[2]/div/div/div";
-//    private final String CHECKBOX_SAMPLE_YES = "//*[@id='root']/div[1]/div[2]/div[6]/div[6]/div/div[1]/div/div/div";
-//    private final String CHECKBOX_SAMPLE_N0 = "//*[@id='root']/div[1]/div[2]/div[6]/div[6]/div/div[2]/div/div/div";
-//    private final String BUTTON_PREVIEW = " //*[@id='root']/div[1]/div[2]/div[7]/button";
-//    private final String BUTTON_RETURN_TO_EDITTING = "//*[@id='root']/div[1]/div[2]/div[2]/div[1]/button";
-//    private final String BUTTON_SAVE = "//*[@id='root']/div[1]/div[2]/div[2]/div[2]/button";
-
-
-    //div[@class='sc-iQviOx hkGxeg']//div[@class='sc-fePcEy cZfHCq']//*[name()='svg'] edit product
-    //div[@class='sc-iQviOx hkGxeg']//div[@class='sc-iaEFAN iNUINm']//*[name()='svg']
-    //*[@id="root"]/div[1]/div[2]/div[3]/div[2]/div[1]/div/div[1] add product
-    //div[@class='sc-iOTpNu kjTrFZ']//*[name()='svg'] close product
-
-    //input[@value='No name product'] name product
-    //*[@id="root"]/div[1]/div[2]/div[3]/div[2]/div[1]/div/div[3]/div[4]/input quantity
-    //*[@id="root"]/div[1]/div[2]/div[3]/div[2]/div[1]/div/div[3]/div[5]/input prise
-    //button[@class='sc-iyjcSV lkrIHE'] upload foto
-    //div[@class='sc-iOTpNu kjTrFZ']//*[name()='svg'] clouse form
-
-    //div[@class='sc-HUpva nvGQK']//div[@class='sc-fePcEy cZfHCq']//*[name()='svg'] add company
-    //div[@class='sc-iOTpNu kjTrFZ']//*[name()='svg'] close company
-    //div[@class='sc-HUpva nvGQK']//div[@class='sc-iaEFAN iNUINm'] open form
-    //input[@value='No name photo'] add foto
-    //button[@class='sc-iyjcSV lkrIHE'] upload foto
-    //div[@class='sc-HUpva nvGQK']//div[@class='sc-fePcEy cZfHCq']//*[name()='svg'] close form comp
-    //button[normalize-space()='Save']  button save compani
-
-    //*[@id="root"]/div[1]/div[2]/div[1]/button return to
+    public void editProfileFactory(FactoryDTO factory) {
+        fillCompanyNameField(factory);
+        fillCountryField(factory);
+        fillCityField(factory);
+        fillEmailField(factory);
+        fillWebsiteField(factory);
+        fillFacebookField(factory);
+        fillInstagramField(factory);
+        fillLinkedinField(factory);
+        selectAvailability(Availability.NEXT_MONTH);
+        fillIndustryField(factory);
+        removeAllKeywords();
+        fillKeywordsField(factory.getKeywords());
+        fillAboutField(factory);
+        fillFoundedField(factory);
+        fillLanguagesField(factory);
+        fillShippingToField(factory);
+        fillPaymentTermsField(factory);
+        selectCheckBoxCustomizationCapacity(Yes_No.NO);
+        selectCheckBoxRDCapacity(Yes_No.YES);
+        selectCheckBoxSpecialPacking(Yes_No.NO);
+        selectCheckBoxWhiteLabel(Yes_No.YES);
+        selectCheckBoxCertification(Yes_No.NO);
+        selectCheckBoxSample(Yes_No.YES);
+    }
 
     public void ClickButtonEditProfile() {
-        click(By.xpath(Reader.getProperty("EDIT_PROFILE_BUTTON")));
+        click(By.xpath(getProperty("EDIT_PROFILE_BUTTON")));
 
     }
 
@@ -84,133 +54,219 @@ public class HelperFactoryProfile extends HelperBase {
     }
 
     public void fillCompanyNameField(FactoryDTO provider) {
-        type(By.xpath(Reader.getProperty("INPUT_COMPANY_NAME")), provider.getCompany_name());
+        type(By.xpath(getProperty("INPUT_COMPANY_NAME")), provider.getCompany_name());
     }
 
     public void fillCountryField(FactoryDTO provider) {
-        type(By.xpath(Reader.getProperty("INPUT_COUNTRY")), provider.getCountry());
+        type(By.xpath(getProperty("INPUT_COUNTRY")), provider.getCountry());
     }
 
     public void fillCityField(FactoryDTO provider) {
-        type(By.xpath(Reader.getProperty("INPUT_CITY")), provider.getCity());
+        type(By.xpath(getProperty("INPUT_CITY")), provider.getCity());
 
     }
 
     public void fillEmailField(FactoryDTO provider) {
-        type(By.xpath(Reader.getProperty("INPUT_EMAIL")), provider.getEmail());
+        type(By.xpath(getProperty("INPUT_EMAIL")), provider.getEmail());
     }
 
     public void fillWebsiteField(FactoryDTO provider) {
-        type(By.xpath(Reader.getProperty("INPUT_WEB_SITE")), provider.getWebsite());
+        type(By.xpath(getProperty("INPUT_WEB_SITE")), provider.getWebsite());
     }
 
     public void fillFacebookField(FactoryDTO provider) {
-        type(By.xpath(Reader.getProperty("INPUT_FACEBOOK")), provider.getFacebook());
+        type(By.xpath(getProperty("INPUT_FACEBOOK")), provider.getFacebook());
     }
 
     public void fillInstagramField(FactoryDTO provider) {
-        type(By.xpath(Reader.getProperty("INPUT_INSTAGRAM ")), provider.getInstagram());
+        type(By.xpath(getProperty("INPUT_INSTAGRAM")), provider.getInstagram());
     }
 
     public void fillLinkedinField(FactoryDTO provider) {
-        type(By.xpath(Reader.getProperty("INPUT_LINKEDIN")), provider.getLinkedin());
+        type(By.xpath(getProperty("INPUT_LINKEDIN")), provider.getLinkedin());
 
     }
 
     public void selectAvailability(Availability availability) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         switch (availability) {
-            case NOW -> click(By.xpath(Reader.getProperty("CHECK_BOX_AVAILABILITY_NOW ")));
-            case NEXT_WEEK -> click(By.xpath(Reader.getProperty("CHECK_BOX_AVAILABILITY_NEXT_WEEK")));
-            case NEXT_MONTH -> click(By.xpath(Reader.getProperty("CHECK_BOX_AVAILABILITY_NEXT_MONTH ")));
+            case NOW:
+
+                js.executeScript("document.querySelector('#root > div.sc-bdfCDU.ctpicw > div.sc-gsTDqH.ftZrOe > div:nth-child(3) > div:nth-child(5) > div > div:nth-child(1) > div > div').click();");
+                break;
+            case NEXT_WEEK :
+
+               js.executeScript("document.querySelector('#root > div.sc-bdfCDU.ctpicw > div.sc-gsTDqH.ftZrOe > div:nth-child(3) > div:nth-child(5) > div > div:nth-child(2) > div > div').click();");
+                break;
+            case NEXT_MONTH :
+
+                js.executeScript("document.querySelector('#root > div.sc-bdfCDU.ctpicw > div.sc-gsTDqH.ftZrOe > div:nth-child(3) > div:nth-child(5) > div > div:nth-child(3) > div > div').click();");
+                break;
 
         }
 
     }
-
+    public int countContacts(){
+        return driver.findElements(By.xpath(getProperty("KEYWORDS"))).size();
+    }
+    public int removeKeywords() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        int countBefore = countContacts();
+        logger.info("Amount of contacts before is " + countBefore);
+            click(By.xpath(getProperty("KEYWORDS")));
+            js.executeScript("document.querySelector('#root > div.sc-bdfCDU.ctpicw > div.sc-gsTDqH.ftZrOe > div:nth-child(3) > div.sc-kEBmHM.fateTn > div:nth-child(1) > div').click();");
+            pause(2000);
+        int countAfter = countContacts();
+        logger.info("Amount of contacts after is " + countAfter);
+        return countAfter - countBefore;
+    }
+    public void removeAllKeywords() {
+        while (driver.findElements(By.xpath(getProperty("KEYWORDS"))).size()>0) {
+            removeKeywords();
+        }
+    }
     public void fillIndustryField(FactoryDTO provider) {
-        type(By.xpath(Reader.getProperty("INPUT_INDUSTRY")), provider.getIndustry());
+        type(By.xpath(getProperty("INPUT_INDUSTRY")), provider.getIndustry());
     }
 
     public void fillKeywordsField(String keywords) {
         String[] split = keywords.split(",");
-//        JavascriptExecutor js = (JavascriptExecutor) wd;
-//        js.executeScript("document.querySelector('#subjectsInput').click();");
-
-        click(By.xpath(Reader.getProperty("INPUT_KEYWORDS")));
+        click(By.xpath(getProperty("INPUT_KEYWORDS")));
         for (String keyword : split) {
-            driver.findElement(By.xpath(Reader.getProperty("INPUT_KEYWORDS"))).sendKeys(keyword);
-            driver.findElement(By.xpath(Reader.getProperty("INPUT_KEYWORDS"))).sendKeys(Keys.ENTER);
+            driver.findElement(By.xpath(getProperty("INPUT_KEYWORDS"))).sendKeys(keyword);
+            driver.findElement(By.xpath(getProperty("INPUT_KEYWORDS"))).sendKeys(Keys.ENTER);
 
         }
     }
 
     public void fillAboutField(FactoryDTO provider) {
-        type(By.xpath(Reader.getProperty("INPUT_ABOUT")), provider.getAbout());
+        type(By.xpath(getProperty("INPUT_ABOUT")), provider.getAbout());
     }
 
     public void fillFoundedField(FactoryDTO provider) {
-        type(By.xpath(Reader.getProperty("INPUT_FOUNDED")), provider.getFounded());
+        type(By.xpath(getProperty("INPUT_FOUNDED")), provider.getFounded());
     }
 
     public void fillLanguagesField(FactoryDTO provider) {
-        type(By.xpath(Reader.getProperty("INPUT_LANGUAGE")), provider.getLanguages());
+        type(By.xpath(getProperty("INPUT_LANGUAGE")), provider.getLanguages());
     }
 
     public void fillShippingToField(FactoryDTO provider) {
-        type(By.xpath(Reader.getProperty("INPUT_SHIPPING_TO")), provider.getShipping_to());
+        type(By.xpath(getProperty("INPUT_SHIPPING_TO")), provider.getShipping_to());
     }
 
     public void fillPaymentTermsField(FactoryDTO provider) {
-        type(By.xpath(Reader.getProperty("INPUT_PAYMENTS_TERMS ")), provider.getPayment_terms());
+        type(By.xpath(getProperty("INPUT_PAYMENTS_TERMS")), provider.getPayment_terms());
     }
 
     public void selectCheckBoxCustomizationCapacity(Yes_No capacity) {
         if (capacity.equals(Yes_No.YES)) {
-            click(By.xpath(Reader.getProperty("CHECKBOX_CUSTOMIZATION_CAPACITY_YES")));
+            click(By.xpath(getProperty("CHECKBOX_CUSTOMIZATION_CAPACITY_YES")));
         } else if (capacity.equals(Yes_No.NO)) {
-            click(By.xpath(Reader.getProperty("CHECKBOX_CUSTOMIZATION_CAPACITY_NO")));
+            click(By.xpath(getProperty("CHECKBOX_CUSTOMIZATION_CAPACITY_NO")));
         }
     }
 
     public void selectCheckBoxRDCapacity(Yes_No capacity) {
         if (capacity.equals(Yes_No.YES)) {
-            click(By.xpath(Reader.getProperty("CHECKBOX_RD_CAPACITY_YES")));
+            click(By.xpath(getProperty("CHECKBOX_RD_CAPACITY_YES")));
         } else if (capacity.equals(Yes_No.NO)) {
-            click(By.xpath(Reader.getProperty("CHECKBOX_RD_CAPACITY_NO")));
+            click(By.xpath(getProperty("CHECKBOX_RD_CAPACITY_NO")));
         }
     }
 
     public void selectCheckBoxSpecialPacking(Yes_No packing) {
         if (packing.equals(Yes_No.YES)) {
-            click(By.xpath(Reader.getProperty("CHECKBOX_SPECIAL_PACKING_YES")));
+            click(By.xpath(getProperty("CHECKBOX_SPECIAL_PACKING_YES")));
         } else if (packing.equals(Yes_No.NO)) {
-            click(By.xpath(Reader.getProperty("CHECKBOX_SPECIAL_PACKING_NO")));
+            click(By.xpath(getProperty("CHECKBOX_SPECIAL_PACKING_NO")));
         }
     }
 
     public void selectCheckBoxWhiteLabel(Yes_No label) {
         switch (label) {
-            case YES -> click(By.xpath(Reader.getProperty("CHECKBOX_WHITE_LABEL_YES")));
-            case NO -> click(By.xpath(Reader.getProperty("CHECKBOX_WHITE_LABEL_NO")));
+            case YES:
+                click(By.xpath(getProperty("CHECKBOX_WHITE_LABEL_YES")));
+                break;
+            case NO:
+                click(By.xpath(getProperty("CHECKBOX_WHITE_LABEL_NO")));
+                break;
 
         }
     }
+
     public void selectCheckBoxCertification(Yes_No certification) {
         switch (certification) {
-            case YES -> click(By.xpath(Reader.getProperty("CHECKBOX_SERTIFICATION_YES")));
-            case NO -> click(By.xpath(Reader.getProperty("CHECKBOX_SERTIFICATION_NO")));
+            case YES :click(By.xpath(getProperty("CHECKBOX_SERTIFICATION_YES")));
+            break;
+            case NO :click(By.xpath(getProperty("CHECKBOX_SERTIFICATION_NO")));
+            break;
 
         }
     }
+
     public void selectCheckBoxSample(Yes_No sample) {
         switch (sample) {
-            case YES -> click(By.xpath(Reader.getProperty("CHECKBOX_SAMPLE_YES")));
-            case NO -> click(By.xpath(Reader.getProperty("CHECKBOX_SAMPLE_NO")));
+            case YES : click(By.xpath(getProperty("CHECKBOX_SAMPLE_YES")));
+            break;
+            case NO : click(By.xpath(getProperty("CHECKBOX_SAMPLE_NO")));
+            break;
 
         }
     }
-    public void clickButtonPreview(){
-        click(By.xpath(Reader.getProperty("BUTTON_PREVIEW")));
+
+    public void clickButtonPreview() {
+        click(By.xpath(getProperty("BUTTON_PREVIEW")));
+    }
+
+    public void clickButtonReturnToEditing() {
+        click(By.xpath(getProperty("BUTTON_RETURN_TO_EDITTING")));
+    }
+
+    public void clickButtonSave() {
+        click(By.xpath(getProperty("BUTTON_SAVE")));
+    }
+    public void AddProduct(FactoryDTO provider){
+        clickButtonEditProduct();
+        pause(2000);
+        clickButtonAddProduct();
+        fillNameProductField(provider);
+        fillOrderQuantityField(provider);
+        fillPriceyField(provider);
+        pause(2000);
+        UploadProductFoto();
+        pause(2000);
+        clickButtonCloseProduct();
+    }
+    public void clickButtonEditProduct() {
+        click(By.xpath(getProperty("BUTTON_ADIT_PRODUCT")));
+    }
+    public void clickButtonAddProduct(){
+        click(By.xpath(getProperty("BUTTON_ADD_PRODUCT")));
+    }
+    public void clickButtonCloseProduct(){
+        click(By.xpath(getProperty("CLOSE_PRODUCT_FORM")));
+    }
+    public void fillNameProductField(FactoryDTO provider){
+        type(By.xpath(getProperty("INPUT_NAME_PRODUCT")), provider.getProduct_name());
+    }
+    public void fillOrderQuantityField(FactoryDTO provider){
+        type(By.xpath(getProperty("INPUT_QUANTITY_ORDER")), provider.getMin_order_quantity());
+    }
+    public void fillPriceyField(FactoryDTO provider){
+        type(By.xpath(getProperty("INPUT_PRICE")), provider.getUnit_price());
+    }
+    public void UploadProductFoto (){
+        WebElement uploadElement=driver.findElement(By.xpath(Reader.getProperty("UPLOAD_FOTO")));
+        //uploadElement.click();
+        uploadElement.sendKeys(Reader.getProperty("PATH_FOTO"));
+
+    }
+
+    public void UploadAvatar (String locator, String  PathOfFiles){
+        WebElement uploadElement=driver.findElement(By.xpath(getProperty(locator)));
+        uploadElement.sendKeys(getProperty(PathOfFiles));
+
     }
 
 

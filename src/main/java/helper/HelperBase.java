@@ -5,6 +5,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.Reader;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +30,13 @@ public class HelperBase {
     public String getTextAttribute(String attribute,By locator) {
         return driver.findElement(locator).getAttribute(attribute);
     }
+    public String GetText() {
+        WebElement text = driver.findElement(By.xpath(Reader.getProperty("TEXT_PRODUCT")));
+       return text.getText();
+
+
+    }
+
     public void clickRightMouse(By locator) {
         Actions actions = new Actions(driver);
         WebElement element = driver.findElement(locator);
@@ -40,7 +48,7 @@ public class HelperBase {
 
 
     public void waitElementToBeClickable(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
     public WebElement wait(By locator) {

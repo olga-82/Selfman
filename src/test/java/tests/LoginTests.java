@@ -4,6 +4,7 @@ import config.AppManager;
 import dto.AgentDTO;
 import dto.CustomerDTO;
 import dto.FactoryDTO;
+import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import utils.Reader;
@@ -55,10 +56,9 @@ public class LoginTests extends TestBase  {
 
        app.getLog().login_Factory(factory);
        app.getLog().pause(2000);
-        app.getProvider().OpenSettingsPage();
+       app.getProvider().click(By.xpath("//h4[normalize-space()='Settings']"));
         app.getLog().pause(2000);
-        app.getProvider().ClickButtonEditProfile();
-        app.getLog().pause(2000);
+
 
     }
     @Test
