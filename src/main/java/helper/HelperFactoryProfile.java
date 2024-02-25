@@ -258,7 +258,6 @@ public class HelperFactoryProfile extends HelperBase implements HelperNavigation
     }
     public void UploadProductFoto (){
         WebElement uploadElement=driver.findElement(By.xpath(Reader.getProperty("UPLOAD_FOTO")));
-        //uploadElement.click();
         uploadElement.sendKeys(Reader.getProperty("PATH_FOTO"));
 
     }

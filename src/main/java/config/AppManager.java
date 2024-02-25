@@ -1,5 +1,6 @@
 package config;
 
+import helper.HelperAgentProfile;
 import helper.HelperFactoryProfile;
 import helper.HelperLoginPage;
 import org.openqa.selenium.WebDriver;
@@ -28,6 +29,7 @@ public  class AppManager {
     WebDriverListener listener;
     HelperLoginPage loginPage;
     HelperFactoryProfile provider;
+    HelperAgentProfile agent;
     public AppManager() {
         browser = System.getProperty("browser", Browser.CHROME.browserName());
         logger.info(browser);
@@ -66,9 +68,10 @@ public  class AppManager {
 
         driver.navigate().to(Reader.getProperty("web.baseUrl"));
        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         loginPage=new HelperLoginPage(driver);
         provider =new HelperFactoryProfile(driver);
+        agent =new HelperAgentProfile(driver);
     }
 
 
