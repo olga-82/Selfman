@@ -67,7 +67,7 @@ public  class AppManager {
         }
 
         driver.navigate().to(Reader.getProperty("web.baseUrl"));
-       driver.manage().window().maximize();
+      // driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         loginPage=new HelperLoginPage(driver);
         provider =new HelperFactoryProfile(driver);

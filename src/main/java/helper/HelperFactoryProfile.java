@@ -4,9 +4,14 @@ import dto.Availability;
 import dto.FactoryDTO;
 import dto.Yes_No;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.Reader;
+
+import java.time.Duration;
 
 import static utils.Reader.getProperty;
 
@@ -18,6 +23,7 @@ public class HelperFactoryProfile extends HelperBase implements HelperNavigation
     Logger logger= LoggerFactory.getLogger(HelperFactoryProfile.class);
 
     public void editProfileFactory(FactoryDTO factory) {
+        UploadFoto("INPUT_AVATAR","PATH_FOTO");
         fillCompanyNameField(factory);
         fillCountryField(factory);
         fillCityField(factory);
@@ -115,7 +121,7 @@ public class HelperFactoryProfile extends HelperBase implements HelperNavigation
         logger.info("Amount of contacts before is " + countBefore);
             click(By.xpath(getProperty("KEYWORDS")));
             js.executeScript("document.querySelector('#root > div.sc-bdfCDU.ctpicw > div.sc-gsTDqH.ftZrOe > div:nth-child(3) > div.sc-kEBmHM.fateTn > div:nth-child(1) > div').click();");
-            pause(2000);
+            pause(1000);
         int countAfter = countContacts();
         logger.info("Amount of contacts after is " + countAfter);
         return countAfter - countBefore;
@@ -236,8 +242,45 @@ public class HelperFactoryProfile extends HelperBase implements HelperNavigation
         pause(2000);
         UploadProductFoto();
         pause(2000);
+        clickButtonSaveCompany();
+        pause(2000);
         clickButtonCloseProduct();
     }
+    public void AddCompany(FactoryDTO provider){
+        clickButtonEditBlockCompany();
+        clickButtonAddCompany();
+        fillNameCompanyField(provider);
+        UploadFoto("UPLOAD_FOTO", "COMPANY_FOTO");
+        pause(2000);
+        clickButtonSaveCompany();
+        pause(2000);
+       clickButtonSaveCompany();
+    }
+
+    public void clickButtonEditBlockCompany() {
+        click(By.xpath(getProperty("BUTTON_ADD_COMPANY")));
+    }
+    public void clickButtonCloseBlockCompany(){
+        click(By.xpath(getProperty("BUTTON_CLOSE_COMPANY")));
+    }
+    public void clickButtonAddCompany(){
+        click(By.xpath(getProperty("BUTTON_OPEN_FORM_COMPANY")));
+    }
+
+    public void fillNameCompanyField(FactoryDTO provider) {
+        type(By.xpath(getProperty("INPUT_NAME_COMPANY")), provider.getCompany_name());
+    }
+    public void clickButtonSaveCompany() {
+        click(By.xpath(getProperty("BUTTON_SAVE_COMPANY")));
+    }
+    public void clickButtonCloseFormCompany(){
+        click(By.xpath(getProperty("BUTTON_CLOSE_FORM_COMPANY")));
+    }
+    public void clickButtonReturnToFactoryPage(){
+        click(By.xpath(getProperty("BUTTON_RETURN_BACK")));
+    }
+
+
     public void clickButtonEditProduct() {
         click(By.xpath(getProperty("BUTTON_ADIT_PRODUCT")));
     }
@@ -259,14 +302,19 @@ public class HelperFactoryProfile extends HelperBase implements HelperNavigation
     public void UploadProductFoto (){
         WebElement uploadElement=driver.findElement(By.xpath(Reader.getProperty("UPLOAD_FOTO")));
         uploadElement.sendKeys(Reader.getProperty("PATH_FOTO"));
+        pause(2000);
+
+    }
+    public void addPicture() {
+        WebElement element = new WebDriverWait(driver, Duration.ofSeconds(2000))
+                .until(ExpectedConditions.elementToBeClickable(By.xpath(Reader.getProperty("INPUT_AVATAR"))));
+        Actions action = new Actions(driver);
+        action.moveToElement(element).click();
+        action.sendKeys(Reader.getProperty("PATH_FOTO")).build().perform();
 
     }
 
-    public void UploadAvatar (String locator, String  PathOfFiles){
-        WebElement uploadElement=driver.findElement(By.xpath(getProperty(locator)));
-        uploadElement.sendKeys(getProperty(PathOfFiles));
 
-    }
 
 
 }

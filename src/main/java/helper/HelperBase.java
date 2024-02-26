@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 
+import static utils.Reader.getProperty;
+
 public class HelperBase {
 
     WebDriver driver ;
@@ -72,6 +74,10 @@ public class HelperBase {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+    public void UploadFoto (String locator, String  PathOfFiles){
+        WebElement uploadElement=driver.findElement(By.xpath(getProperty(locator)));
+        uploadElement.sendKeys(getProperty(PathOfFiles));
     }
 
 
