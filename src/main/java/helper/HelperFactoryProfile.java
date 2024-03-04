@@ -34,7 +34,7 @@ public class HelperFactoryProfile extends HelperBase implements HelperNavigation
         fillLinkedinField(factory);
         selectAvailability(Availability.NEXT_MONTH);
         fillIndustryField(factory);
-        removeAllKeywords();
+        removeAllKeywords("KEYWORDS", "DELETE_KEYWORDS");
         fillKeywordsField(factory.getKeywords());
         fillAboutField(factory);
         fillFoundedField(factory);
@@ -112,25 +112,7 @@ public class HelperFactoryProfile extends HelperBase implements HelperNavigation
         }
 
     }
-    public int countContacts(){
-        return driver.findElements(By.xpath(getProperty("KEYWORDS"))).size();
-    }
-    public int removeKeywords() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        int countBefore = countContacts();
-        logger.info("Amount of contacts before is " + countBefore);
-            click(By.xpath(getProperty("KEYWORDS")));
-            js.executeScript("document.querySelector('#root > div.sc-bdfCDU.ctpicw > div.sc-gsTDqH.ftZrOe > div:nth-child(3) > div.sc-kEBmHM.fateTn > div:nth-child(1) > div').click();");
-            pause(1000);
-        int countAfter = countContacts();
-        logger.info("Amount of contacts after is " + countAfter);
-        return countAfter - countBefore;
-    }
-    public void removeAllKeywords() {
-        while (driver.findElements(By.xpath(getProperty("KEYWORDS"))).size()>0) {
-            removeKeywords();
-        }
-    }
+
     public void fillIndustryField(FactoryDTO provider) {
         type(By.xpath(getProperty("INPUT_INDUSTRY")), provider.getIndustry());
     }
@@ -303,14 +285,6 @@ public class HelperFactoryProfile extends HelperBase implements HelperNavigation
         WebElement uploadElement=driver.findElement(By.xpath(Reader.getProperty("UPLOAD_FOTO")));
         uploadElement.sendKeys(Reader.getProperty("PATH_FOTO"));
         pause(2000);
-
-    }
-    public void addPicture() {
-        WebElement element = new WebDriverWait(driver, Duration.ofSeconds(2000))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath(Reader.getProperty("INPUT_AVATAR"))));
-        Actions action = new Actions(driver);
-        action.moveToElement(element).click();
-        action.sendKeys(Reader.getProperty("PATH_FOTO")).build().perform();
 
     }
 

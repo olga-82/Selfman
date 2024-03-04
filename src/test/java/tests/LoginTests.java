@@ -4,6 +4,7 @@ import config.AppManager;
 import dto.AgentDTO;
 import dto.CustomerDTO;
 import dto.FactoryDTO;
+import helper.ObjectDTO;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -13,7 +14,7 @@ import java.lang.reflect.Method;
 
 import static utils.Reader.getProperty;
 
-public class LoginTests extends TestBase  {
+public class LoginTests extends TestBase implements ObjectDTO {
 
     @AfterMethod(alwaysRun = true)
     public void precondition(Method method){
@@ -29,10 +30,6 @@ public class LoginTests extends TestBase  {
 
     @Test
     public void login_Positive_Test_Agent() {
-         AgentDTO agent = AgentDTO.builder()
-                    .email(getProperty("web.email"))
-                    .password(getProperty("web.password"))
-                    .build();
         flag_Need_Logout=true;
         logger.info("flagNeedLogout = " + flag_Need_Logout);
         logger.info(" loginPositiveAgent start with credentials "
@@ -45,10 +42,6 @@ public class LoginTests extends TestBase  {
     }
     @Test
     public void login_Positive_Test_Factory() {
-       FactoryDTO factory = FactoryDTO.builder()
-                .email(getProperty("web.email"))
-                .password(getProperty("web.password"))
-                .build();
         flag_Need_Logout=true;
         logger.info("flagNeedLogout = " + flag_Need_Logout);
         logger.info(" login Positive Factory start with credentials "
@@ -56,8 +49,7 @@ public class LoginTests extends TestBase  {
 
        app.getLog().login_Factory(factory);
        app.getLog().pause(2000);
-       app.getProvider().click(By.xpath("//h4[normalize-space()='Settings']"));
-        app.getLog().pause(2000);
+
 
 
     }

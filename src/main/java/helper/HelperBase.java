@@ -1,10 +1,13 @@
 package helper;
 
 import com.google.common.io.Files;
+import dto.Availability;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import utils.Reader;
 
 import java.io.File;
@@ -16,6 +19,7 @@ import static utils.Reader.getProperty;
 public class HelperBase {
 
     WebDriver driver ;
+    Logger logger = LoggerFactory.getLogger(HelperBase.class);
     public HelperBase( WebDriver driver) {
         this.driver = driver;
     }
@@ -79,7 +83,62 @@ public class HelperBase {
         WebElement uploadElement=driver.findElement(By.xpath(getProperty(locator)));
         uploadElement.sendKeys(getProperty(PathOfFiles));
     }
+    public int countContacts(String locator) {
+        return driver.findElements(By.xpath(getProperty(locator))).size();
+    }
+    public int removeKeywords(String locator,String locatorDelete) {
+
+        int countBefore = countContacts(locator);
+        logger.info("Amount of contacts before is " + countBefore);
+        click(By.xpath(getProperty(locator)));
+        pause(2000);
+        click(By.xpath(getProperty(locatorDelete)));
+        int countAfter = countContacts(locator);
+        logger.info("Amount of contacts after is " + countAfter);
+        return countAfter - countBefore;
+    }
+    public void removeAllKeywords(String locator,String locatorDelete) {
+        while (driver.findElements(By.xpath(getProperty(locator))).size() > 0) {
+            removeKeywords(locator,locatorDelete);
+        }
+    }
+        public void fillKeywordsField(String keywords, String locator) {
+        String[] split = keywords.split(",");
+        click(By.xpath(getProperty(locator)));
+        for (String keyword : split) {
+            driver.findElement(By.xpath(getProperty(locator))).sendKeys(keyword);
+            driver.findElement(By.xpath(getProperty(locator))).sendKeys(Keys.ENTER);
+
+        }
+
+    }
+//    public void removeKeyword2(String locator, String locator2) {
+//        WebElement element = new WebDriverWait(driver, Duration.ofSeconds(2000))
+//                .until(ExpectedConditions.elementToBeClickable(By.xpath(Reader.getProperty(locator))));
+//        WebElement element2 =new WebDriverWait(driver, Duration.ofSeconds(2000))
+//                .until(ExpectedConditions.elementToBeClickable(By.xpath(Reader.getProperty(locator))));
+//        Actions action = new Actions(driver);
+//        action.moveToElement(element).click();
+//        action.moveToElement(element2).click().build().perform();
+//        click(By.xpath(getProperty(locator2)));
+//    }
 
 
+
+    public void selectAvailability(Availability availability, String locatorNow, String locatorNext_Week,String locatorNext_Month) {
+        switch (availability) {
+            case NOW:
+                click(By.xpath(getProperty(locatorNow)));
+                break;
+            case NEXT_WEEK :
+                click(By.xpath(getProperty(locatorNext_Week)));
+                break;
+            case NEXT_MONTH :
+                click(By.xpath(getProperty(locatorNext_Month)));
+                break;
+
+        }
+
+    }
 
 }

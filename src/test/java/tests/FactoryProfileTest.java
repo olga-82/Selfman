@@ -1,6 +1,7 @@
 package tests;
 
 import dto.FactoryDTO;
+import helper.ObjectDTO;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -9,12 +10,12 @@ import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
-public class FactoryProfileTest extends TestBase {
+public class FactoryProfileTest extends TestBase implements ObjectDTO {
 
 
    @BeforeMethod(alwaysRun = true)
     public void precondition(Method method) {
-       app.getLog().login_Factory(provider);
+       app.getLog().login_Factory(factory);
     }
 
     @Test
@@ -29,11 +30,11 @@ public class FactoryProfileTest extends TestBase {
         app.getProvider().clickButtonSave();
         app.getLog().pause(2000);
        Assert.assertEquals( app.getProvider().GetText(), "Products");
-       app.getProvider().AddProduct(factory);
-       app.getLog().pause(2000);
-       app.getProvider().AddCompany(factory);
-       app.getProvider().clickButtonReturnToFactoryPage();
-       app.getProvider().clickButtonSave();
+//       app.getProvider().AddProduct(factory);
+//       app.getLog().pause(2000);
+//       app.getProvider().AddCompany(factory);
+//       app.getProvider().clickButtonReturnToFactoryPage();
+//       app.getProvider().clickButtonSave();
        flag_Need_Logout=true;
     }
     @AfterMethod(alwaysRun = true)

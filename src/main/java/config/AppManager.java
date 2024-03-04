@@ -41,6 +41,7 @@ public  class AppManager {
     public HelperFactoryProfile getProvider() {
         return provider;
     }
+    public HelperAgentProfile getAgent() {return agent;}
 
     @BeforeSuite(alwaysRun = true)
     public void init() {
