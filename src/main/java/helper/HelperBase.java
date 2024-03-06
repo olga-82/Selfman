@@ -36,9 +36,9 @@ public class HelperBase {
     public String getTextAttribute(String attribute,By locator) {
         return driver.findElement(locator).getAttribute(attribute);
     }
-    public String GetText() {
-        WebElement text = driver.findElement(By.xpath(Reader.getProperty("TEXT_PRODUCT")));
-       return text.getText();
+    public String GetText(String locator) {
+        WebElement text = driver.findElement(By.xpath(Reader.getProperty(locator)));
+       return text.getText().trim();
 
 
     }
@@ -54,7 +54,7 @@ public class HelperBase {
 
 
     public void waitElementToBeClickable(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
     public WebElement wait(By locator) {
@@ -112,16 +112,7 @@ public class HelperBase {
         }
 
     }
-//    public void removeKeyword2(String locator, String locator2) {
-//        WebElement element = new WebDriverWait(driver, Duration.ofSeconds(2000))
-//                .until(ExpectedConditions.elementToBeClickable(By.xpath(Reader.getProperty(locator))));
-//        WebElement element2 =new WebDriverWait(driver, Duration.ofSeconds(2000))
-//                .until(ExpectedConditions.elementToBeClickable(By.xpath(Reader.getProperty(locator))));
-//        Actions action = new Actions(driver);
-//        action.moveToElement(element).click();
-//        action.moveToElement(element2).click().build().perform();
-//        click(By.xpath(getProperty(locator2)));
-//    }
+
 
 
 

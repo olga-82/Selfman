@@ -14,7 +14,7 @@ public class FactoryProfileTest extends TestBase implements ObjectDTO {
 
 
    @BeforeMethod(alwaysRun = true)
-    public void precondition(Method method) {
+    public void precondition() {
        app.getLog().login_Factory(factory);
     }
 
@@ -29,7 +29,7 @@ public class FactoryProfileTest extends TestBase implements ObjectDTO {
         app.getLog().pause(2000);
         app.getProvider().clickButtonSave();
         app.getLog().pause(2000);
-       Assert.assertEquals( app.getProvider().GetText(), "Products");
+       Assert.assertEquals( app.getProvider().GetText("TEXT_PRODUCT"), "Products");
 //       app.getProvider().AddProduct(factory);
 //       app.getLog().pause(2000);
 //       app.getProvider().AddCompany(factory);

@@ -17,8 +17,8 @@ public class Reader {
     }
 
     private static void initProperties() {
-      //  String target = System.getProperty("target", "prod");
-        // src/test/resources/prod.properties
+//        String target = System.getProperty("target", "prod");
+//         src/test/resources/prod.properties
         String path = String.format("src/test/resources/my.properties");
         try (FileReader fileReader = new FileReader(path)) {
             properties.load(fileReader);

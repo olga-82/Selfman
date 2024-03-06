@@ -6,6 +6,7 @@ import dto.CustomerDTO;
 import dto.FactoryDTO;
 import helper.ObjectDTO;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import utils.Reader;
@@ -28,7 +29,7 @@ public class LoginTests extends TestBase implements ObjectDTO {
 
     }
 
-    @Test
+    @Test(alwaysRun = true)
     public void login_Positive_Test_Agent() {
         flag_Need_Logout=true;
         logger.info("flagNeedLogout = " + flag_Need_Logout);
@@ -37,28 +38,25 @@ public class LoginTests extends TestBase implements ObjectDTO {
 
         app.getLog().login_Agent(agent);
         app.getLog().pause(2000);
-
+        Assert.assertEquals(app.getAgent().GetText("TEXT_NAME_LAST_NAME_AGENT"),agent.getFirst_name()+" "+agent.getLast_name());
+        Assert.assertEquals(app.getAgent().GetText("TEXT_COMPANY_NAME_AGENT"),agent.getCompany_name());
 
     }
-    @Test
+    @Test(alwaysRun = true)
     public void login_Positive_Test_Factory() {
         flag_Need_Logout=true;
         logger.info("flagNeedLogout = " + flag_Need_Logout);
         logger.info(" login Positive Factory start with credentials "
                 + factory.getEmail() + " " + factory.getPassword());
-
        app.getLog().login_Factory(factory);
        app.getLog().pause(2000);
+        Assert.assertEquals(app.getProvider().GetText("TEXT_COMPANY_NAME"),factory.getCompany_name());
 
 
 
     }
-    @Test
+    @Test(alwaysRun = true)
     public void login_Positive_Test_Customer() {
-       CustomerDTO customer = CustomerDTO.builder()
-                .email(getProperty("web.email"))
-                .password(getProperty("web.password"))
-                .build();
         flag_Need_Logout=true;
         logger.info("flagNeedLogout = " + flag_Need_Logout);
         logger.info(" loginPositiveCustomer start with credentials "
@@ -66,6 +64,7 @@ public class LoginTests extends TestBase implements ObjectDTO {
 
         app.getLog().login_Customer(customer);
         app.getLog().pause(2000);
+        Assert.assertEquals(app.getProvider().GetText("TEXT_COMPANY_NAME_CUSTOMER"),customer.getCompany_name());
 
     }
 }

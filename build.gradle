@@ -31,3 +31,21 @@ dependencies {
 test {
     useTestNG()
 }
+task mytest(type: Test) {
+    useTestNG() {
+        if (project.hasProperty('browser') && browser) {
+            systemProperty 'browser', browser
+        }
+        if (project.hasProperty('target') && target) {
+            systemProperty 'target', target
+        }
+        def suite = System.getProperty('suite')
+        if (suite) {
+            if (suite.equals('login')) {
+                suites 'src/test/resources/login.xml'
+            } else if (suite.equals('profile')) {
+                suites 'src/test/resources/testsProfile.xml'
+            }
+        }
+    }
+}

@@ -1,6 +1,7 @@
 package tests;
 
 import helper.ObjectDTO;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
@@ -8,25 +9,24 @@ import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
-public class AgentProfileTest extends TestBase implements ObjectDTO {
+public class CustomerProfileTest extends TestBase implements ObjectDTO {
+
     @BeforeMethod(alwaysRun = true)
     public void precondition() {
-        app.getLog().login_Agent(agent);
+        app.getLog().login_Customer(customer);
     }
     @Test
-    public void createAgentProfileTest_001()  {
-        flag_Need_Logout=true;
+  public void  createProfileCustomer_001(){
         app.getProvider().OpenSettingsPage();
-        app.getLog().pause(2000);
-        app.getAgent().editFeeHourBlockAgent(agent);
-        app.getLog().pause(2000);
-        app.getAgent().editSocialBlockAgent(agent);
-        app.getLog().pause(2000);
-        app.getAgent().editAboutBlockAgent(agent);
-        app.getLog().pause(2000);
-        app.getAgent().editInfoBlockAgent(agent);
-
+        app.getCustomer().pause(10000);
+        app.getCustomer().editCustomerProfile(customer);
+        flag_Need_Logout=true;
+        app.getCustomer().pause(4000);
+        Assert.assertEquals(app.getCustomer().GetText("TEXT_COMPANY_NAME_CUSTOMER"), customer.getCompany_name());
+        Assert.assertEquals(app.getCustomer().GetText("TEXT_EMAIL_CUSTOMER"),customer.getEmail());
     }
+
+
 
     @AfterMethod(alwaysRun = true)
     public void postcondition(Method method) {
@@ -38,5 +38,4 @@ public class AgentProfileTest extends TestBase implements ObjectDTO {
         }
 
     }
-
 }

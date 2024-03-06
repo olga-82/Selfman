@@ -1,10 +1,7 @@
 package helper;
 
-import dto.AgentDTO;
-import dto.Availability;
-import dto.FactoryDTO;
-import dto.Price;
-import utils.Reader;
+import dto.*;
+import utils.*;
 
 public interface ObjectDTO {
 
@@ -59,6 +56,21 @@ public interface ObjectDTO {
             .instagram("https://www.instagram.com/")
             .linkedin("https://www.linkedin.com/")
             .about_yourself("I am agent")
+            .build();
+
+    CustomerDTO customer= CustomerDTO.builder()
+            .first_name(NameAndLastNameGenerator.generateName())
+            .last_name(NameAndLastNameGenerator.generateLastName())
+            .company_name("Electric Trading Company")
+            .email(Reader.getProperty("web.email"))
+            .password(Reader.getProperty("web.password"))
+            .mobile_phone(PhoneNumberGenerate.generatePhoneNumber())
+            .index("32415")
+            .country("United States")
+            .city(AddresGenerator.generateCity())
+            .street(AddresGenerator.generateStreet())
+            .building("45")
+            .about_yourself("i am customer")
             .build();
 
 }
