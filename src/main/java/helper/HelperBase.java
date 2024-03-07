@@ -18,7 +18,7 @@ import static utils.Reader.getProperty;
 
 public class HelperBase {
 
-    WebDriver driver ;
+    static WebDriver driver ;
     Logger logger = LoggerFactory.getLogger(HelperBase.class);
     public HelperBase( WebDriver driver) {
         this.driver = driver;
@@ -63,7 +63,7 @@ public class HelperBase {
         return driver.findElement(locator);
     }
 
-    public  void takeScreenshot(String link) {
+    public static void takeScreenshot(String link) {
         File tmp=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
         File screenshot=new File(link);
         try {

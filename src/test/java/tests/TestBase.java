@@ -1,7 +1,7 @@
 package tests;
 
 import config.AppManager;
-import config.TestNgListener;
+import config.TestNgListener2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterSuite;
@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
 
 import java.io.IOException;
-@Listeners(TestNgListener.class)
+@Listeners(TestNgListener2.class)
 public class TestBase {
     protected static AppManager app;
     protected Logger logger = LoggerFactory.getLogger(TestBase.class);
@@ -19,12 +19,10 @@ public class TestBase {
     public void setUp() throws IOException {
         app = new AppManager(); // Initialize AppManager here
         app.init();
-        logger.info("Test started");
     }
 
     @AfterSuite(alwaysRun = true)
     public void stop() {
         app.tearDown();
-        logger.info("Test stopped");
     }
 }

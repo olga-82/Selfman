@@ -18,10 +18,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+@SuppressWarnings("ALL")
 public class WDListener implements WebDriverListener {
 
 
-    Logger logger = LoggerFactory.getLogger(WDListener.class);
+    static Logger logger = LoggerFactory.getLogger(WDListener.class);
 
     public WDListener() { super();
 
@@ -37,12 +38,6 @@ public class WDListener implements WebDriverListener {
         WebDriverListener.super.afterAnyCall(target, method, args, result);
     }
 
-//    @Override
-//    public void onError(Object target, Method method, Object[] args, InvocationTargetException e,WebDriver driver) {
-//        WebDriverListener.super.onError(target, method, args, e);
-//        takeScreenshot((TakesScreenshot) driver);
-//
-//    }
 
     @Override
     public void beforeAnyWebDriverCall(WebDriver driver, Method method, Object[] args) {
@@ -99,15 +94,6 @@ public class WDListener implements WebDriverListener {
 
     }
 
-    @Override
-    public void beforeFindElements(WebDriver driver, By locator) {
-        WebDriverListener.super.beforeFindElements(driver, locator);
-    }
-
-    @Override
-    public void afterFindElements(WebDriver driver, By locator, List<WebElement> result) {
-        WebDriverListener.super.afterFindElements(driver, locator, result);
-    }
 
     @Override
     public void beforeGetPageSource(WebDriver driver) {
@@ -600,22 +586,6 @@ public class WDListener implements WebDriverListener {
         WebDriverListener.super.afterGetSize(window, result);
     }
 
-//    @Override
-//    public void onError(Object target, Method method, Object[] args, Throwable throwable, WebDriver driver) {
-//        this.throwable = throwable;
-//        this.driver = driver;
-//        WebDriverListener.super.onError(target, method, args, throwable, driver);
-//        logger.info("Something went wrong!");
-//        logger.info(throwable.getMessage());
-//        logger.info(throwable.fillInStackTrace().getMessage());
-//
-//         takeScreenshot((TakesScreenshot) driver);
-//
-//
-//
-//
-//
-//    }
 
     @Override
     public void beforeSetSize(WebDriver.Window window, Dimension size) {
@@ -667,7 +637,7 @@ public class WDListener implements WebDriverListener {
         WebDriverListener.super.afterFullscreen(window);
     }
 
-    private void takeScreenshot(TakesScreenshot takesScreenshot) {
+    public static void takeScreenshot(TakesScreenshot takesScreenshot) {
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
         String fileName = "src/test/screenshots/screenshot-" + timestamp + ".png";
         logger.info("Create screenshot: " + fileName);
@@ -681,5 +651,6 @@ public class WDListener implements WebDriverListener {
             e.printStackTrace();
 
         }
+
     }
 }
